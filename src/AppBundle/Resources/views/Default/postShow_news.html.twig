@@ -1,0 +1,47 @@
+{% extends '::layout.html.twig' %}
+
+{% block container %}
+    <div class="clear-fixed">
+        <h3>{{ post.title }}</h3>
+        <p> tags :
+            {% if post.tags is empty %} no tags
+            {% else %}
+                {% for tag in post.tags %}
+                    {{ tag.title }},
+                {% endfor %}
+            {% endif %}
+        </p>
+        <hr>
+        <p>
+            {{ post.content }}
+        </p>
+        <hr>
+    </div>
+    <a href="{{ path('posts_list') }}">Back to home</a>
+    <br><br>
+    <div>
+        {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Submit comment" class="btn btn-success"/>
+        {{ form_end(form) }}
+    </div>
+    <div>
+        {% if comments_pagination is empty %}
+            No comments here
+        {% else %}
+            <h4>Comments:</h4>
+            {% for comment in comments_pagination %}
+                {{ comment.publishedAt|date('Y:m:d h:i:s') }}
+                {{ comment.content }}
+                <hr>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(comments_pagination) }}
+    </div>
+    <br><br>
+{% endblock %}
+

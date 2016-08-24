@@ -1,0 +1,11 @@
+AppBundle\Entity\Post:
+    post_news_{1..10}:
+        postType: news
+        title: <sentence()>
+        content: <text()>
+        category: '@category*'
+
+    post_ad_{1..5}:
+        postType: ad
+        title: <sentence()>
+        content: <text(100)>

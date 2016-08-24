@@ -1,0 +1,19 @@
+{% extends '::layout.html.twig' %}
+
+{% block container %}
+    <div class="clear-fixed">
+        <h3>{{ post.title }}</h3>
+        {% if is_granted('ROLE_ADMIN')%}
+            <a href="{{ path('admin_edit_posts', {'id': post.id}) }}"
+               class="navbar-right glyphicon glyphicon-pencil big green"></a>
+            <span class="navbar-right" style="margin-right: 10px">{{ render(controller('AppBundle:Admin/AdminPost:deletePost', {'id': post.id})) }}</span>
+        {% endif %}
+        <p>
+            {{ post.content }}
+        </p>
+        <hr>
+    </div>
+    <a href="{{ path('posts_list') }}">Back to home</a>
+
+{% endblock %}
+

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path('posts_list') }}">Kate Syrotchuk's Blog</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="{{ (app.request.get('_route') == 'posts_list') ? 'active' : '' }}"><a
+                                href="{{ path('posts_list') }}">Posts</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            {{ render(controller('AppBundle:Default:categoriesList')) }}
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if app.user %}
+                        <li><a href="#">My account</a></li>
+                    {% endif %}
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <li><a href="#">Admin dashboard</a></li>
+                    {% endif %}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+{% endblock header %}
+
+{% block container %}{% endblock container %}
+
+{% block sidebar %}
+    {{ render(controller('AppBundle:Default:sideBar')) }}
+{% endblock sidebar %}
+
+{% block footer %}
+    <div class="navbar-fixed-bottom row-fluid"
+         style="background-color: #F8F8F8; height: 30px; line-height: 30px; border-top: #E7E7E7 solid 1px; color: #777777">
+        <div class="navbar-inner">
+            <footer class="text-center">
+                <p>&copy; Kate Syrotchuk's Blog {{ "now"|date('Y') }}</p>
+            </footer>
+        </div>
+    </div>
+{% endblock footer %}
+
+{% block body %}
+    {{ block('header') }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                {{ block('container') }}
+            </div>
+            <div class="col-sm-3">
+                {{ block('sidebar') }}
+            </div>
+        </div>
+    </div>
+    {{ block('footer') }}
+{% endblock body %}

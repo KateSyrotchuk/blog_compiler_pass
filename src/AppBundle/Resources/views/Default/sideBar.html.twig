@@ -1,0 +1,12 @@
+<div class="well">
+    <h4>Our advertising</h4>
+    <ul class="list-unstyled">
+        {% for post in posts_pagination %}
+        <div class="well">
+            <li><h4>{{ post.title }}</h4>
+                <h3><a href="{{ path('posts_show', {'id': post.id, 'type': post.postType}) }}">{{ post.content|slice(0, 50) }}</a></h3>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+</div>

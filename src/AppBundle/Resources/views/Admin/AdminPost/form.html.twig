@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% set actionType = '_new' in app.request.get('_route') ? 'new' : 'edit' %}
+{% block title %}Post - {{ actionType|title }}{% endblock title %}
+
+{% block container %}
+    <h1>{{ block('title') }}</h1>
+
+    {% if typeForm is defined %}
+    {% form_theme typeForm 'bootstrap_3_horizontal_layout.html.twig' %}
+    {{ form_start(typeForm) }}
+    {{ form_widget(typeForm) }}
+    <input type="submit" value="{{ actionType|title }} Post" class="btn btn-success"/>
+    {{ form_end(typeForm) }}
+    {% endif %}
+
+
+    {% if postForm is defined %}
+    {% form_theme postForm 'bootstrap_3_horizontal_layout.html.twig' %}
+    {{ form_start(postForm) }}
+    {{ form_widget(postForm) }}
+    <input type="submit" value="{{ actionType|title }} Post" class="btn btn-success"/>
+
+    <br><br>
+    <a href="{{ path('posts_list') }}" class="btn btn-default">
+        Back to list
+    </a>
+    {{ form_end(postForm) }}
+    {% endif %}
+
+{% endblock container %}
