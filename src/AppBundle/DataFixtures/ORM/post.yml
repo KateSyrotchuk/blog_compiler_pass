@@ -4,6 +4,7 @@ AppBundle\Entity\Post:
         title: <sentence()>
         content: <text()>
         category: '@category*'
+        tags: 5x @tag*
 
     post_ad_{1..5}:
         postType: ad
